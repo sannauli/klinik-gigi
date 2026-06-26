@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Dental Practice - Klinik Dokter Gigi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand:'#004BB0', 'brand-dark':'#033476', bg:'#F9F8F6' },
+          fontFamily: { sans:['Inter','sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+    body{font-family:'Inter',sans-serif;overflow-x:hidden;max-width:100vw}
+
+    /* ===== KEN BURNS - Hero ===== */
+    @keyframes kenburns1{
+      0%{transform:scale(1) translate(0,0)}
+      25%{transform:scale(1.08) translate(-1.5%,-1%)}
+      50%{transform:scale(1.12) translate(-0.5%,0.5%)}
+      75%{transform:scale(1.06) translate(0.5%,-0.5%)}
+      100%{transform:scale(1) translate(0,0)}
+    }
+    @keyframes kenburns2{
+      0%{transform:scale(1.1) translate(-1%,0)}
+      30%{transform:scale(1) translate(0,1%)}
+      60%{transform:scale(1.08) translate(1%,-0.5%)}
+      100%{transform:scale(1.1) translate(-1%,0)}
+    }
+    .kb-slow{animation:kenburns1 20s ease-in-out infinite}
+    .kb-slow2{animation:kenburns2 16s ease-in-out infinite}
+
+    /* ===== PARALLAX IMAGE ===== */
+    .parallax-img{
+      transition:transform 0.1s linear;
+      will-change:transform;
+    }
+
+    /* ===== FADE ANIMATIONS ===== */
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(28px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    @keyframes scaleIn{
+      from{opacity:0;transform:scale(0.88)}
+      to{opacity:1;transform:scale(1)}
+    }
+    @keyframes slideIn{
+      from{opacity:0;transform:translateX(40px)}
+      to{opacity:1;transform:translateX(0)}
+    }
+    @keyframes float{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-8px)}
+    }
+    @keyframes floatSlow{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-5px)}
+    }
+    @keyframes marquee{
+      0%{transform:translateX(0)}
+      100%{transform:translateX(-50%)}
+    }
+    @keyframes gradientMove{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    @keyframes pulseRing{
+      0%{transform:scale(1);opacity:0.35}
+      100%{transform:scale(1.7);opacity:0}
+    }
+    @keyframes drawLine{
+      from{width:0}
+      to{width:100%}
+    }
+    @keyframes breathe{
+      0%,100%{opacity:0.6}
+      50%{opacity:1}
+    }
+    @keyframes shimmer{
+      0%{background-position:-200% 0}
+      100%{background-position:200% 0}
+    }
+    @keyframes revealUp{
+      from{clip-path:inset(100% 0 0 0)}
+      to{clip-path:inset(0 0 0 0)}
+    }
+    @keyframes rotateGlow{
+      0%{transform:rotate(0deg)}
+      100%{transform:rotate(360deg)}
+    }
+
+    .anim{opacity:0}
+    .anim.v{animation:fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
+    .anim-sc{opacity:0}
+    .anim-sc.v{animation:scaleIn 0.5s cubic-bezier(0.16,1,0.3,1) forwards}
+    .anim-sl{opacity:0}
+    .anim-sl.v{animation:slideIn 0.6s cubic-bezier(0.16,1,0.3,1) forwards}
+
+    .d1{animation-delay:.05s!important}.d2{animation-delay:.1s!important}
+    .d3{animation-delay:.15s!important}.d4{animation-delay:.2s!important}
+    .d5{animation-delay:.25s!important}.d6{animation-delay:.3s!important}
+    .d7{animation-delay:.35s!important}.d8{animation-delay:.4s!important}
+
+    .float{animation:float 5s ease-in-out infinite}
+    .float-slow{animation:floatSlow 4.5s ease-in-out infinite}
+
+    .marquee-track{display:flex;animation:marquee 25s linear infinite;width:max-content}
+    .marquee-track:hover{animation-play-state:paused}
+
+    .gradient-move{background-size:200% 200%;animation:gradientMove 7s ease infinite}
+
+    /* ===== IMAGE REVEAL ===== */
+    .img-reveal{
+      position:relative;overflow:hidden;
+    }
+    .img-reveal::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(135deg,rgba(0,75,176,0.3),rgba(107,33,168,0.15));
+      animation:breathe 4s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    /* ===== SHIMMER OVERLAY ===== */
+    .shimmer-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.08) 45%,rgba(255,255,255,0.15) 50%,rgba(255,255,255,0.08) 55%,transparent 60%);
+      background-size:200% 100%;
+      animation:shimmer 4s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    /* ===== GLOWING BORDER ===== */
+    .glow-border{
+      position:relative;
+    }
+    .glow-border::before{
+      content:'';position:absolute;inset:-2px;
+      background:conic-gradient(from 0deg,transparent,rgba(0,75,176,0.4),transparent,rgba(107,33,168,0.3),transparent);
+      border-radius:inherit;
+      animation:rotateGlow 6s linear infinite;
+      z-index:-1;
+      opacity:0.5;
+    }
+
+    /* ===== CARD ===== */
+    .card{transition:transform 0.25s ease,box-shadow 0.25s ease}
+    .card:active{transform:scale(0.97)}
+
+    .map-btn{transition:all 0.2s ease}
+    .map-btn:active{transform:scale(0.95);background:#004BB0;color:white;border-color:#004BB0}
+
+    .s-icon{transition:all 0.25s ease}
+    .service-card:active .s-icon{background:#004BB0;color:white;border-color:#004BB0;transform:rotate(-6deg) scale(1.08)}
+
+    .testi{transition:transform 0.2s ease}
+    .testi:active{transform:scale(0.97)}
+
+    /* ===== MOBILE MENU ===== */
+    .mobile-menu{transform:translateX(100%);transition:transform 0.3s cubic-bezier(0.16,1,0.3,1)}
+    .mobile-menu.open{transform:translateX(0)}
+
+    /* ===== TOAST ===== */
+    .toast{transform:translateY(80px) scale(0.9);opacity:0;transition:all 0.4s cubic-bezier(0.16,1,0.3,1)}
+    .toast.show{transform:translateY(0) scale(1);opacity:1}
+
+    /* ===== UNDERLINE DRAW ===== */
+    .underline-draw{position:relative;display:inline-block}
+    .underline-draw::after{
+      content:'';position:absolute;bottom:-2px;left:0;height:3px;
+      background:rgba(255,255,255,0.35);border-radius:2px;
+      animation:drawLine 1s ease forwards;animation-delay:0.6s;width:0;
+    }
+
+    /* ===== SCROLLBAR HIDDEN ===== */
+    .no-sb{scrollbar-width:none;-ms-overflow-style:none}
+    .no-sb::-webkit-scrollbar{display:none}
+
+    /* ===== PHOTO PROFILE 3D TILT ===== */
+    .photo-3d{
+      transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      transform-style:preserve-3d;
+      perspective:800px;
+    }
+  </style>
+</head>
+<body class="bg-bg text-slate-800 antialiased">
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-brand/95 backdrop-blur-md">
+    <div class="px-4">
+      <div class="flex items-center justify-between h-14">
+        <a href="#beranda" class="flex items-center gap-2 text-white font-semibold text-base">
+          <div class="w-7 h-7 bg-white/15 rounded-lg flex items-center justify-center">
+            <i data-lucide="heart-pulse" class="w-4 h-4"></i>
+          </div>
+          Dental Practice
+        </a>
+        <button id="menuBtn" class="text-white p-2 -mr-2 hover:bg-white/10 rounded-lg transition-colors" aria-label="Menu">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-[280px] h-full bg-brand-dark z-[60] shadow-2xl">
+    <div class="flex items-center justify-between p-4 border-b border-white/10">
+      <span class="text-white font-semibold">Menu</span>
+      <button id="closeMenuBtn" class="text-white/60 hover:text-white p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div class="flex flex-col p-3 gap-0.5">
+      <a href="#beranda" class="mn text-white/85 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors text-sm font-medium">Home</a>
+      <a href="#jadwal" class="mn text-white/85 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors text-sm font-medium">Jadwal Praktek</a>
+      <a href="#layanan" class="mn text-white/85 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors text-sm font-medium">Layanan</a>
+      <a href="#tentang" class="mn text-white/85 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors text-sm font-medium">Profil Dokter</a>
+      <a href="#testimoni" class="mn text-white/85 px-4 py-3 rounded-xl hover:bg-white/10 transition-colors text-sm font-medium">Testimoni</a>
+      <a href="https://wa.me/6285296646976" target="_blank"
+         class="mt-3 flex items-center justify-center gap-2 bg-white text-brand px-4 py-3 rounded-xl font-semibold text-sm">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+  <div id="menuOverlay" class="fixed inset-0 bg-black/50 z-[55] hidden"></div>
+
+  <!-- ===== HERO ===== -->
+  <section id="beranda" class="relative pt-14">
+    <div class="relative overflow-hidden">
+      <!-- Ken Burns animated image -->
+      <div class="w-full h-[56vh] min-h-[340px] overflow-hidden">
+        <img src="https://z-cdn-media.chatglm.cn/files/042a6d6b-8be4-4860-89cb-b4fcd87e9c40.jpeg?auth_key=1882371513-bad07c0d63984d3ea68fba348dff3b32-0-c3ea657316b72dfad1d0d19f0854b7f8"
+             alt="Klinik Gigi"
+             class="kb-slow parallax-img w-full h-[120%] object-cover object-top -translate-y-[10%]">
+        <!-- Shimmer light sweep -->
+        <div class="shimmer-overlay"></div>
+      </div>
+      <!-- Gradient overlays -->
+      <div class="absolute inset-0 bg-gradient-to-t from-brand via-brand/50 to-brand/20"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-brand/90 via-transparent to-transparent"></div>
+
+      <!-- Content -->
+      <div class="absolute bottom-0 left-0 right-0 p-5 pb-6">
+        <span class="anim v inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-sm text-white/90 text-[10px] font-semibold tracking-widest uppercase px-3 py-1.5 rounded-full border border-white/10 mb-3">
+          <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
+          Dokter Gigi Terpercaya
+        </span>
+        <h1 class="anim v d1 text-white text-[2rem] leading-[1.1] font-extrabold tracking-tight">
+          Selamat <span class="underline-draw">Datang</span>
+        </h1>
+        <p class="anim v d2 text-white/70 text-[13px] leading-relaxed mt-2 max-w-xs">
+          Melayani dengan sepenuh hati selama <strong class="text-white">25 tahun</strong>. Perawatan tanpa rasa sakit.
+        </p>
+        <div class="anim v d3 flex gap-6 mt-5">
+          <div>
+            <div class="text-2xl font-extrabold text-white counter" data-target="25">0</div>
+            <div class="text-[10px] text-white/40 font-medium uppercase tracking-wider">Tahun</div>
+          </div>
+          <div class="w-px bg-white/15"></div>
+          <div>
+            <div class="text-2xl font-extrabold text-white"><span class="counter" data-target="15">0</span>K+</div>
+            <div class="text-[10px] text-white/40 font-medium uppercase tracking-wider">Pasien</div>
+          </div>
+          <div class="w-px bg-white/15"></div>
+          <div>
+            <div class="text-2xl font-extrabold text-white counter" data-target="3">0</div>
+            <div class="text-[10px] text-white/40 font-medium uppercase tracking-wider">Lokasi</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="bg-brand px-5 py-4 flex gap-3">
+      <a href="https://wa.me/6285296646976?text=Halo%20dok,%20saya%20mau%20buat%20janji"
+         class="anim v d4 flex-1 flex items-center justify-center gap-2 bg-white text-brand py-3 rounded-xl font-semibold text-sm shadow-lg">
+        <i data-lucide="calendar-check" class="w-4 h-4"></i> Buat Janji
+      </a>
+      <a href="#jadwal" class="anim v d5 flex items-center justify-center gap-2 border border-white/25 text-white px-5 py-3 rounded-xl font-medium text-sm">
+        <i data-lucide="clock" class="w-4 h-4"></i> Jadwal
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE ===== -->
+  <div class="bg-slate-900 py-2.5 overflow-hidden">
+    <div class="marquee-track">
+      <div class="flex items-center gap-5 px-3 text-slate-500 text-[10px] font-semibold uppercase tracking-widest whitespace-nowrap">
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Pemeriksaan</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Bleaching</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Tambal Gigi</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Cabut Gigi</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Mahkota Gigi</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Behel</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Gigi Bungsu</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Gigi Anak</span><span class="text-slate-700">•</span>
+      </div>
+      <div class="flex items-center gap-5 px-3 text-slate-500 text-[10px] font-semibold uppercase tracking-widest whitespace-nowrap">
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Pemeriksaan</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Bleaching</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Tambal Gigi</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Cabut Gigi</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Mahkota Gigi</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Behel</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Gigi Bungsu</span><span class="text-slate-700">•</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="check-circle" class="w-3 h-3 text-green-500"></i>Gigi Anak</span><span class="text-slate-700">•</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== JADWAL ===== -->
+  <section id="jadwal" class="py-10 px-4 bg-bg">
+    <div class="text-center mb-7">
+      <span class="anim inline-block text-[10px] font-bold tracking-[0.2em] uppercase text-brand mb-2">Jadwal Praktek</span>
+      <h2 class="anim d1 text-[1.4rem] font-bold text-slate-900 tracking-tight">Waktu & Tempat Praktek</h2>
+      <p class="anim d2 text-slate-500 text-[13px] leading-relaxed mt-2">Saya melayani di tiga lokasi. Pilih yang terdekat.</p>
+    </div>
+
+    <div class="space-y-4">
+      <!-- Rsud -->
+      <div class="anim d2 card bg-white border border-slate-200/80 rounded-2xl overflow-hidden">
+        <div class="h-1 bg-gradient-to-r from-brand to-brand-dark"></div>
+        <div class="p-4">
+          <div class="flex items-center gap-3 mb-3.5">
+            <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i data-lucide="building-2" class="w-4.5 h-4.5 text-brand"></i>
+            </div>
+            <div class="min-w-0">
+              <h3 class="font-bold text-slate-900 text-sm">Rsud Jatisampurna</h3>
+              <p class="text-[11px] text-slate-400 truncate">Jl. Raya Kranggan No.26, Jatisampurna</p>
+            </div>
+          </div>
+          <div class="flex gap-2 mb-3.5 flex-wrap">
+            <span class="text-[11px] bg-slate-50 text-slate-700 px-2.5 py-1 rounded-lg font-medium">Sen-Kam 07.00-14.30</span>
+            <span class="text-[11px] bg-slate-50 text-slate-700 px-2.5 py-1 rounded-lg font-medium">Jum 07.00-14.00</span>
+            <span class="text-[11px] bg-slate-50 text-slate-700 px-2.5 py-1 rounded-lg font-medium">Sab 07.30-14.00</span>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Raya+Kranggan+No.26+RT.001/RW.004+Jatisampurna+Kec.+Jatisampurna+Kota+Bks+Jawa+Barat+17433"
+             target="_blank"
+             class="map-btn w-full flex items-center justify-center gap-2 border border-slate-200 text-slate-600 py-2.5 rounded-xl text-xs font-semibold">
+            <i data-lucide="navigation" class="w-3.5 h-3.5"></i> Buka di Google Maps <i data-lucide="arrow-right" class="w-3 h-3"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Mutiara -->
+      <div class="anim d4 card bg-white border border-slate-200/80 rounded-2xl overflow-hidden relative">
+        <div class="h-1 bg-gradient-to-r from-purple-600 to-brand"></div>
+        <div class="absolute top-3 right-3 bg-brand text-white text-[9px] font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-full">Favorit</div>
+        <div class="p-4">
+          <div class="flex items-center gap-3 mb-3.5">
+            <div class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i data-lucide="stethoscope" class="w-4.5 h-4.5 text-purple-600"></i>
+            </div>
+            <div class="min-w-0">
+              <h3 class="font-bold text-slate-900 text-sm">Klinik Mutiara Medika</h3>
+              <p class="text-[11px] text-slate-400 truncate">Jl. Raya Hankam No.2, Jatimurni</p>
+            </div>
+          </div>
+          <div class="flex gap-2 mb-3.5 flex-wrap">
+            <span class="text-[11px] bg-slate-50 text-slate-700 px-2.5 py-1 rounded-lg font-medium">Sen-Jum 15.00-19.00</span>
+            <span class="text-[11px] bg-slate-50 text-slate-400 px-2.5 py-1 rounded-lg font-medium line-through">Sab-Min Tutup</span>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Raya+Hankam+No.2+RT.003/RW.004+Jatimurni+Kec.+Pd.+Melati+Kota+Bks+Jawa+Barat+17431"
+             target="_blank"
+             class="map-btn w-full flex items-center justify-center gap-2 border border-slate-200 text-slate-600 py-2.5 rounded-xl text-xs font-semibold">
+            <i data-lucide="navigation" class="w-3.5 h-3.5"></i> Buka di Google Maps <i data-lucide="arrow-right" class="w-3 h-3"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Rizal -->
+      <div class="anim d6 card bg-white border border-slate-200/80 rounded-2xl overflow-hidden">
+        <div class="h-1 bg-gradient-to-r from-amber-400 to-orange-500"></div>
+        <div class="p-4">
+          <div class="flex items-center gap-3 mb-3.5">
+            <div class="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i data-lucide="hospital" class="w-4.5 h-4.5 text-amber-600"></i>
+            </div>
+            <div class="min-w-0">
+              <h3 class="font-bold text-slate-900 text-sm">Klinik Rizal Medika</h3>
+              <p class="text-[11px] text-slate-400 truncate">Jl. Anggrek Raya, Jatinegara, Jaktim</p>
+            </div>
+          </div>
+          <div class="flex gap-2 mb-3.5 flex-wrap">
+            <span class="text-[11px] bg-slate-50 text-slate-700 px-2.5 py-1 rounded-lg font-medium">Sen-Jum 19.00-21.00</span>
+            <span class="text-[11px] bg-slate-50 text-slate-400 px-2.5 py-1 rounded-lg font-medium line-through">Sab-Min Tutup</span>
+          </div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Anggrek+Raya+blok+E+No.39+Kp.+Pengarengan+RT.10/RW.06+Jatinegara+Kec.+Cakung+Kota+Jakarta+Timur+Daerah+Khusus+Ibukota+Jakarta+13930"
+             target="_blank"
+             class="map-btn w-full flex items-center justify-center gap-2 border border-slate-200 text-slate-600 py-2.5 rounded-xl text-xs font-semibold">
+            <i data-lucide="navigation" class="w-3.5 h-3.5"></i> Buka di Google Maps <i data-lucide="arrow-right" class="w-3 h-3"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="anim d8 mt-5 flex items-start gap-2.5 bg-amber-50/80 border border-amber-200/50 rounded-xl p-3.5">
+      <i data-lucide="info" class="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0"></i>
+      <p class="text-[11px] text-amber-800/90 leading-relaxed">Jadwal dapat berubah sewaktu-waktu. Silakan konfirmasi via WhatsApp sebelum berkunjung.</p>
+    </div>
+  </section>
+
+  <!-- ===== LAYANAN ===== -->
+  <section id="layanan" class="py-10 px-4 bg-white">
+    <div class="text-center mb-7">
+      <span class="anim inline-block text-[10px] font-bold tracking-[0.2em] uppercase text-brand mb-2">Layanan</span>
+      <h2 class="anim d1 text-[1.4rem] font-bold text-slate-900 tracking-tight">Perawatan yang Saya Tawarkan</h2>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div class="anim d1 service-card card bg-bg border border-slate-200/80 rounded-xl p-3.5">
+        <div class="s-icon w-9 h-9 bg-white border border-slate-200 rounded-lg flex items-center justify-center mb-2.5">
+          <i data-lucide="scan-search" class="w-4 h-4 text-brand"></i>
+        </div>
+        <h3 class="font-bold text-slate-900 text-xs mb-1">Pemeriksaan Gigi</h3>
+        <p class="text-[10px] text-slate-500 leading-relaxed">Rontgen digital & pemeriksaan menyeluruh.</p>
+      </div>
+      <div class="anim d2 service-card card bg-bg border border-slate-200/80 rounded-xl p-3.5">
+        <div class="s-icon w-9 h-9 bg-white border border-slate-200 rounded-lg flex items-center justify-center mb-2.5">
+          <i data-lucide="sparkles" class="w-4 h-4 text-brand"></i>
+        </div>
+        <h3 class="font-bold text-slate-900 text-xs mb-1">Bleaching</h3>
+        <p class="text-[10px] text-slate-500 leading-relaxed">Pemutihan gigi aman & natural.</p>
+      </div>
+      <div class="anim d3 service-card card bg-bg border border-slate-200/80 rounded-xl p-3.5">
+        <div class="s-icon w-9 h-9 bg-white border border-slate-200 rounded-lg flex items-center justify-center mb-2.5">
+          <i data-lucide="wrench" class="w-4 h-4 text-brand"></i>
+        </div>
+        <h3 class="font-bold text-slate-900 text-xs mb-1">Tambal Gigi</h3>
+        <p class="text-[10px] text-slate-500 leading-relaxed">Bahan berkualitas & tahan lama.</p>
+      </div>
+      <div class="anim d4 service-card card bg-bg border border-slate-200/80 rounded-xl p-3.5">
+        <div class="s-icon w-9 h-9 bg-white border border-slate-200 rounded-lg flex items-center justify-center mb-2.5">
+          <i data-lucide="shield-off" class="w-4 h-4 text-brand"></i>
+        </div>
+        <h3 class="font-bold text-slate-900 text-xs mb-1">Cabut Gigi</h3>
+        <p class="text-[10px] text-slate-500 leading-relaxed">Minim sakit, prosedur steril.</p>
+      </div>
+      <div class="anim d5 service-card card bg-bg border border-slate-200/80 rounded-xl p-3.5">
+        <div class="s-icon w-9 h-9 bg-white border border-slate-200 rounded-lg flex items-center justify-center mb-2.5">
+          <i data-lucide="crown" class="w-4 h-4 text-brand"></i>
+        </div>
+        <h3 class="font-bold text-slate-900 text-xs mb-1">Mahkota Gigi</h3>
+        <p class="text-[10px] text-slate-500 leading-relaxed">Perbaiki bentuk & fungsi gigi.</p>
+      </div>
+      <div class="anim d6 service-card card bg-bg border border-slate-200/80 rounded-xl p-3.5">
+        <div class="s-icon w-9 h-9 bg-white border border-slate-200 rounded-lg flex items-center justify-center mb-2.5">
+          <i data-lucide="smile" class="w-4 h-4 text-brand"></i>
+        </div>
+        <h3 class="font-bold text-slate-900 text-xs mb-1">Behel / Kawat</h3>
+        <p class="text-[10px] text-slate-500 leading-relaxed">Merapikan susunan gigi.</p>
+      </div>
+      <div class="anim d7 service-card card bg-bg border border-slate-200/80 rounded-xl p-3.5">
+        <div class="s-icon w-9 h-9 bg-white border border-slate-200 rounded-lg flex items-center justify-center mb-2.5">
+          <i data-lucide="scissors" class="w-4 h-4 text-brand"></i>
+        </div>
+        <h3 class="font-bold text-slate-900 text-xs mb-1">Gigi Bungsu</h3>
+        <p class="text-[10px] text-slate-500 leading-relaxed">Bedah pengangkatan aman.</p>
+      </div>
+      <div class="anim d8 service-card card bg-bg border border-slate-200/80 rounded-xl p-3.5">
+        <div class="s-icon w-9 h-9 bg-white border border-slate-200 rounded-lg flex items-center justify-center mb-2.5">
+          <i data-lucide="baby" class="w-4 h-4 text-brand"></i>
+        </div>
+        <h3 class="font-bold text-slate-900 text-xs mb-1">Gigi Anak</h3>
+        <p class="text-[10px] text-slate-500 leading-relaxed">Pendekatan ramah anak.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROFIL DOKTER ===== -->
+  <section id="tentang" class="py-10 px-4 bg-bg">
+    <div class="text-center mb-7">
+      <span class="anim inline-block text-[10px] font-bold tracking-[0.2em] uppercase text-brand mb-2">Tentang Saya</span>
+      <h2 class="anim d1 text-[1.4rem] font-bold text-slate-900 tracking-tight">Profil Dokter</h2>
+    </div>
+
+    <div class="anim d2 relative">
+      <div class="bg-white border border-slate-200/80 rounded-2xl overflow-hidden">
+        <!-- Animated photo with Ken Burns + parallax -->
+        <div class="relative overflow-hidden img-reveal">
+          <div class="w-full h-[280px] overflow-hidden">
+            <img id="docPhoto"
+                 src="https://z-cdn-media.chatglm.cn/files/042a6d6b-8be4-4860-89cb-b4fcd87e9c40.jpeg?auth_key=1882371513-bad07c0d63984d3ea68fba348dff3b32-0-c3ea657316b72dfad1d0d19f0854b7f8"
+                 alt="Dokter Gigi"
+                 class="kb-slow2 parallax-img photo-3d w-full h-[130%] object-cover object-top -translate-y-[15%]">
+            <div class="shimmer-overlay"></div>
+          </div>
+          <!-- Floating badge -->
+          <div class="absolute bottom-3 right-3 bg-brand text-white rounded-xl px-3.5 py-2.5 shadow-lg float-slow z-10">
+            <div class="text-xl font-extrabold leading-none">25+</div>
+            <div class="text-[9px] text-white/55 font-medium uppercase tracking-wider mt-0.5">Tahun</div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-5">
+          <p class="text-[13px] text-slate-600 leading-relaxed mb-3 text-justify">
+            Saya adalah seorang dokter gigi profesional dengan pengalaman lebih dari 25 tahun dalam bidang kedokteran gigi. 
+            Berkomitmen untuk memberikan pelayanan terbaik dengan sentuhan personal kepada setiap pasien yang saya tangani.
+          </p>
+          <p class="text-[13px] text-slate-600 leading-relaxed mb-5 text-justify">
+            Saya praktek di tiga lokasi strategis di Kota Bekasi dan Jakarta Timur, dilengkapi dengan peralatan modern dan 
+            prosedur sterilisasi yang ketat demi keamanan dan kenyamanan pasien. 
+            Saya mengutamakan pendekatan yang minim rasa sakit dalam setiap tindakan yang saya lakukan.
+          </p>
+
+          <div class="grid grid-cols-2 gap-2.5 mb-5">
+            <div class="flex items-center gap-2 bg-bg rounded-lg p-2.5">
+              <div class="w-7 h-7 bg-green-50 rounded-md flex items-center justify-center flex-shrink-0">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-green-600"></i>
+              </div>
+              <span class="text-[11px] text-slate-700 font-medium">Sterilisasi RS</span>
+            </div>
+            <div class="flex items-center gap-2 bg-bg rounded-lg p-2.5">
+              <div class="w-7 h-7 bg-green-50 rounded-md flex items-center justify-center flex-shrink-0">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-green-600"></i>
+              </div>
+              <span class="text-[11px] text-slate-700 font-medium">Alat Modern</span>
+            </div>
+            <div class="flex items-center gap-2 bg-bg rounded-lg p-2.5">
+              <div class="w-7 h-7 bg-green-50 rounded-md flex items-center justify-center flex-shrink-0">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-green-600"></i>
+              </div>
+              <span class="text-[11px] text-slate-700 font-medium">Minim Sakit</span>
+            </div>
+            <div class="flex items-center gap-2 bg-bg rounded-lg p-2.5">
+              <div class="w-7 h-7 bg-green-50 rounded-md flex items-center justify-center flex-shrink-0">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-green-600"></i>
+              </div>
+              <span class="text-[11px] text-slate-700 font-medium">Harga Terjangkau</span>
+            </div>
+          </div>
+
+          <a href="https://wa.me/6285296646976?text=Halo%20dok,%20saya%20mau%20konsultasi"
+             class="flex items-center justify-center gap-2 bg-green-600 text-white py-3 rounded-xl font-semibold text-sm w-full">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Hubungi Saya
+            <span class="text-white/45 text-[10px] font-normal">0852-9664-6976</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONI ===== -->
+  <section id="testimoni" class="py-10 px-4 bg-white">
+    <div class="text-center mb-7">
+      <span class="anim inline-block text-[10px] font-bold tracking-[0.2em] uppercase text-brand mb-2">Testimoni</span>
+      <h2 class="anim d1 text-[1.4rem] font-bold text-slate-900 tracking-tight">Apa Kata Pasien Saya</h2>
+    </div>
+
+    <div class="flex gap-3 overflow-x-auto no-sb pb-3 snap-x snap-mandatory -mx-4 px-4">
+      <div class="anim d2 testi snap-start flex-shrink-0 w-[275px] bg-bg border border-slate-200/80 rounded-xl p-4">
+        <div class="flex gap-0.5 mb-3">
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+        </div>
+        <p class="text-[11px] text-slate-600 leading-relaxed mb-4">"Saya takut sama dokter gigi, tapi dokter di sini sangat sabar dan penanganannya minim sakit. Gigi saya sekarang sehat dan bersih."</p>
+        <div class="flex items-center gap-2.5 pt-3 border-t border-slate-200/60">
+          <div class="w-8 h-8 bg-brand/10 rounded-full flex items-center justify-center">
+            <span class="text-[10px] font-bold text-brand">RA</span>
+          </div>
+          <div>
+            <div class="text-xs font-semibold text-slate-900">Rina Agustina</div>
+            <div class="text-[10px] text-slate-400">Tambal Gigi</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="anim d4 testi snap-start flex-shrink-0 w-[275px] bg-bg border border-slate-200/80 rounded-xl p-4">
+        <div class="flex gap-0.5 mb-3">
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+        </div>
+        <p class="text-[11px] text-slate-600 leading-relaxed mb-4">"Bleaching giginya hasilnya bagus banget, warna gigi jadi lebih putih natural. Prosesnya cepat dan dokternya jelasin semuanya detail."</p>
+        <div class="flex items-center gap-2.5 pt-3 border-t border-slate-200/60">
+          <div class="w-8 h-8 bg-brand/10 rounded-full flex items-center justify-center">
+            <span class="text-[10px] font-bold text-brand">BW</span>
+          </div>
+          <div>
+            <div class="text-xs font-semibold text-slate-900">Budi Wijaya</div>
+            <div class="text-[10px] text-slate-400">Bleaching</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="anim d6 testi snap-start flex-shrink-0 w-[275px] bg-bg border border-slate-200/80 rounded-xl p-4">
+        <div class="flex gap-0.5 mb-3">
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+          <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400 fill-amber-400"></i>
+        </div>
+        <p class="text-[11px] text-slate-600 leading-relaxed mb-4">"Anak saya awalnya ketakutan, tapi dokter sangat ramah sama anak-anak. Gigi susu anak saya yang berlubang berhasil ditangani dengan baik."</p>
+        <div class="flex items-center gap-2.5 pt-3 border-t border-slate-200/60">
+          <div class="w-8 h-8 bg-brand/10 rounded-full flex items-center justify-center">
+            <span class="text-[10px] font-bold text-brand">DS</span>
+          </div>
+          <div>
+            <div class="text-xs font-semibold text-slate-900">Dewi Sartika</div>
+            <div class="text-[10px] text-slate-400">Gigi Anak</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-center gap-1.5 mt-3">
+      <div class="w-5 h-1 bg-brand rounded-full"></div>
+      <div class="w-1 h-1 bg-slate-300 rounded-full"></div>
+      <div class="w-1 h-1 bg-slate-300 rounded-full"></div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section id="kontak" class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-brand via-brand-dark to-purple-900 gradient-move"></div>
+    <div class="relative z-10 px-5 py-12 text-center">
+      <span class="anim inline-block text-[10px] font-bold tracking-[0.2em] uppercase text-white/35 mb-3">Kontak</span>
+      <h2 class="anim d1 text-[1.4rem] font-bold text-white tracking-tight mb-3">Siap Merawat Gigi Anda?</h2>
+      <p class="anim d2 text-white/55 text-[13px] leading-relaxed mb-8 max-w-xs mx-auto">Jangan tunda kesehatan gigi Anda. Hubungi saya untuk konsultasi gratis.</p>
+
+      <div class="anim d3 grid grid-cols-3 gap-2.5 mb-8">
+        <div class="bg-white/[0.07] border border-white/[0.1] rounded-xl p-3">
+          <i data-lucide="phone" class="w-4 h-4 text-white/55 mx-auto mb-1.5"></i>
+          <div class="text-[10px] font-semibold text-white">0852-9664-6976</div>
+        </div>
+        <div class="bg-white/[0.07] border border-white/[0.1] rounded-xl p-3">
+          <i data-lucide="map-pin" class="w-4 h-4 text-white/55 mx-auto mb-1.5"></i>
+          <div class="text-[10px] font-semibold text-white">Bekasi & Jaktim</div>
+        </div>
+        <div class="bg-white/[0.07] border border-white/[0.1] rounded-xl p-3">
+          <i data-lucide="clock" class="w-4 h-4 text-white/55 mx-auto mb-1.5"></i>
+          <div class="text-[10px] font-semibold text-white">07.00-21.00</div>
+        </div>
+      </div>
+
+      <a href="https://wa.me/6285296646976?text=Halo%20dok,%20saya%20mau%20buat%20janji%20perawatan%20gigi"
+         class="anim d4 inline-flex items-center gap-2.5 bg-white text-brand px-8 py-3.5 rounded-2xl font-bold text-sm shadow-xl">
+        <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-slate-900 text-white/40 py-7 px-5">
+    <div class="flex items-center justify-center gap-2 text-white font-semibold text-sm mb-2.5">
+      <i data-lucide="heart-pulse" class="w-4 h-4"></i> Dental Practice
+    </div>
+    <div class="flex flex-wrap justify-center gap-x-4 gap-y-1.5 text-[11px] mb-3">
+      <a href="#beranda" class="hover:text-white transition-colors">Home</a>
+      <a href="#jadwal" class="hover:text-white transition-colors">Jadwal</a>
+      <a href="#layanan" class="hover:text-white transition-colors">Layanan</a>
+      <a href="#tentang" class="hover:text-white transition-colors">Profil</a>
+      <a href="#testimoni" class="hover:text-white transition-colors">Testimoni</a>
+    </div>
+    <div class="flex justify-center gap-3 text-[10px] mb-4">
+      <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Raya+Kranggan+No.26+Jatisampurna" target="_blank" class="hover:text-white transition-colors">Rsud Jatisampurna</a>
+      <span>•</span>
+      <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Raya+Hankam+No.2+Jatimurni" target="_blank" class="hover:text-white transition-colors">Mutiara Medika</a>
+      <span>•</span>
+      <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Anggrek+Raya+blok+E+No.39+Jatinegara+Cakung" target="_blank" class="hover:text-white transition-colors">Rizal Medika</a>
+    </div>
+    <div class="border-t border-white/[0.05] pt-3.5 text-center text-[10px]">
+      &copy; 2025 Dental Practice. Bekasi & Jakarta Timur.
+    </div>
+  </footer>
+
+  <!-- ===== FLOATING WA ===== -->
+  <a href="https://wa.me/6285296646976?text=Halo%20dok,%20saya%20mau%20konsultasi"
+     target="_blank" class="fixed bottom-5 right-4 z-50 group" aria-label="WhatsApp">
+    <span class="absolute -top-8 right-0 bg-slate-800 text-white text-[10px] px-2.5 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg pointer-events-none">Chat WhatsApp</span>
+    <div class="relative">
+      <div class="absolute inset-0 bg-green-500 rounded-full" style="animation:pulseRing 2s infinite"></div>
+      <div class="relative bg-green-500 text-white rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform" style="width:52px;height:52px">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </div>
+    </div>
+  </a>
+
+  <!-- ===== TOAST ===== -->
+  <div id="toast" class="toast fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-slate-800 text-white px-4 py-2.5 rounded-xl shadow-2xl text-xs flex items-center gap-2 max-w-[260px] border border-white/10">
+    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-green-400 flex-shrink-0"></i>
+    <span id="toastMsg"></span>
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    lucide.createIcons();
+
+    // Mobile menu
+    const menuBtn=document.getElementById('menuBtn'),closeMenuBtn=document.getElementById('closeMenuBtn'),
+          mobileMenu=document.getElementById('mobileMenu'),menuOverlay=document.getElementById('menuOverlay');
+    function openMenu(){mobileMenu.classList.add('open');menuOverlay.classList.remove('hidden');document.body.style.overflow='hidden'}
+    function closeMenu(){mobileMenu.classList.remove('open');menuOverlay.classList.add('hidden');document.body.style.overflow=''}
+    menuBtn.addEventListener('click',openMenu);
+    closeMenuBtn.addEventListener('click',closeMenu);
+    menuOverlay.addEventListener('click',closeMenu);
+    document.querySelectorAll('.mn').forEach(l=>l.addEventListener('click',closeMenu));
+
+    // Navbar scroll
+    const navbar=document.getElementById('navbar');
+    window.addEventListener('scroll',()=>{
+      if(window.scrollY>30){navbar.style.backgroundColor='rgba(3,52,118,0.98)';navbar.style.boxShadow='0 4px 20px rgba(0,0,0,0.15)'}
+      else{navbar.style.backgroundColor='rgba(0,75,176,0.95)';navbar.style.boxShadow='none'}
+    });
+
+    // ===== PARALLAX on scroll =====
+    const parallaxImgs=document.querySelectorAll('.parallax-img');
+    let ticking=false;
+    window.addEventListener('scroll',()=>{
+      if(!ticking){
+        requestAnimationFrame(()=>{
+          const sy=window.scrollY;
+          parallaxImgs.forEach(img=>{
+            const rect=img.closest('section,div').getBoundingClientRect();
+            const speed=0.15;
+            const yPos=rect.top*speed;
+            img.style.transform=`translateY(${-yPos}px) scale(1.08)`;
+          });
+          ticking=false;
+        });
+        ticking=true;
+      }
+    });
+
+    // ===== 3D TILT on doctor photo (touch) =====
+    const docPhoto=document.getElementById('docPhoto');
+    if(docPhoto){
+      const container=docPhoto.closest('.overflow-hidden');
+      container.addEventListener('touchmove',(e)=>{
+        const rect=container.getBoundingClientRect();
+        const x=(e.touches[0].clientX-rect.left)/rect.width-0.5;
+        const y=(e.touches[0].clientY-rect.top)/rect.height-0.5;
+        docPhoto.style.transform=`rotateY(${x*8}deg) rotateX(${-y*8}deg) scale(1.05)`;
+        docPhoto.style.transition='transform 0.1s linear';
+      },{passive:true});
+      container.addEventListener('touchend',()=>{
+        docPhoto.style.transform='';
+        docPhoto.style.transition='transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      });
+    }
+
+    // Scroll animations
+    const animEls=document.querySelectorAll('.anim,.anim-sc,.anim-sl');
+    const obs=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target)}});
+    },{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+    animEls.forEach(el=>obs.observe(el));
+
+    // Counter
+    const counters=document.querySelectorAll('.counter');
+    let cDone=false;
+    const cObs=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting&&!cDone){
+          cDone=true;
+          counters.forEach(c=>{
+            const t=+c.dataset.target,dur=1200,s=performance.now();
+            function step(now){
+              const p=Math.min((now-s)/dur,1);
+              c.textContent=Math.floor((1-Math.pow(1-p,3))*t);
+              if(p<1)requestAnimationFrame(step);else c.textContent=t;
+            }
+            requestAnimationFrame(step);
+          });
+        }
+      });
+    },{threshold:0.5});
+    counters.forEach(c=>cObs.observe(c));
+
+    // Toast
+    function showToast(msg){
+      const t=document.getElementById('toast');
+      document.getElementById('toastMsg').textContent=msg;
+      t.classList.add('show');
+      setTimeout(()=>t.classList.remove('show'),3000);
+    }
+    window.addEventListener('load',()=>setTimeout(()=>showToast('Selamat datang di Dental Practice!'),1500));
+  </script>
+</body>
+</html>
